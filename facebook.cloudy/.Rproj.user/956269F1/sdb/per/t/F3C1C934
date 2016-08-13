@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(RColorBrewer)\nlibrary(Rfacebook)\nlibrary(wordcloud)",
+    "created" : 1470992003856.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2912190807",
+    "id" : "F3C1C934",
+    "lastKnownWriteTime" : 1470992154,
+    "last_content_update" : 1470992154237,
+    "path" : "C:/Users/AndyWang/Desktop/R/facebook.cloudy/facebook.cloudy",
+    "project_path" : "facebook.cloudy",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}

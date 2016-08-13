@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\n# get html data\nlibrary(XML)\nlibrary(httr)\nlibrary(xml2)\nlibrary(stringr)\n\ntestMoney2 <- function(starpage,endpage){\nSys.setlocale(\"LC_ALL\", \"cht\")\n\npart1_url <-\"http://www.moneydj.com/KMDJ/Common/ListNewArticles.aspx?index1=\" \npart3_url <- \"&svc=NW&a=X0100001\"\nfor(i in starpage:endpage){\n  testurl <- paste(part1_url,i,part3_url,sep=\"\")\n \n  url <- testurl\n  doc <- read_html(url)\n\n  \n  timexpath <- \"//*[@id='ctl00_ctl00_MainContent_Contents_ArticleGridList1_gvList']//td[1]\"\n #  [1] \"\\r\\n            08/12 17:46\\r\\n        \"\n  time <- xml_text(xml_find_all(doc,timexpath))\n #  [1] \"08/1217:46\" \"08/1216:16\" \"08/1210:19\" \"08/1208:44\" \"08/1208:44\" \"08/1116:18\"\n  time <- gsub(pattern=\"[[:space:]]\",replacement=\"\",x= time)   #time\n#  [1] \"08/12_17:46\" \"08/12_16:16\" \"08/12_10:19\" \"08/12_08:44\" \"08/12_08:44\"\n  time <- paste(substr(time,1,5),substr(time,6,nchar(time)),sep=\"_\")\n  \n  titlexpath <- \"//*[@id='ctl00_ctl00_MainContent_Contents_ArticleGridList1_gvList']//td/a\"\n  title <- xml_text(xml_find_all(doc, titlexpath))              #title\n  title <- as.data.frame(title)\n  time <- as.data.frame(time)\n  MoneyDJForum <- cbind(title,time )\n  file_name <- paste(\"./temp/\",paste(\"newsPage_\",i,sep=\"\"),\".txt\",sep=\"\")\n  write.csv(MoneyDJForum,file=file_name)\n}\n}\n",
+    "created" : 1471029614601.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1821113856",
+    "id" : "B7F9FDBA",
+    "lastKnownWriteTime" : 1471029293,
+    "last_content_update" : 1471029293,
+    "path" : "D:/2016 R/0812/testMoney4/testMoney2.r",
+    "project_path" : "testMoney2.r",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -2,8 +2,8 @@ name: neopihoja
 account: neopihoja
 server: shinyapps.io
 appId: 118977
-bundleId: 526577
+bundleId: 526628
 url: https://neopihoja.shinyapps.io/neopihoja/
-when: 1470654295.57438
+when: 1470659670.02736
 asMultiple: FALSE
 asStatic: FALSE

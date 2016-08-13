@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\n# install.packages(\"jiebaR\")\n# install.packages(\"tm\")\n# install.packages(\"slam\")\n#install.packages(\"RColorBrewer\")\n# install.packages(\"wordcloud\")\n# install.packages(\"topicmodels\")\n# install.packages(\"igraph\")\nlibrary(XML)\nlibrary(jiebaRD)\nlibrary(jiebaR)       # 斷詞利器\nlibrary(NLP)\nlibrary(tm)           # 文字詞彙矩陣運算\nlibrary(slam)         # 稀疏矩陣運算\nlibrary(RColorBrewer)\nlibrary(wordcloud)    # 文字雲\nlibrary(topicmodels)  # 主題模型\nsource('chosePage.R')\n\n#Sys.setlocale(\"LC_ALL\", \"cht\")\n\nresult = chosePage(1,1)\n\norgPath = \"./temp\"\ntext = Corpus(DirSource(orgPath), list(language = NA))\ntext <- tm_map(text, removePunctuation)\ntext <- tm_map(text, removeNumbers)\ntext <- tm_map(text, function(word)\n{ gsub(\"[A-Za-z0-9]\", \"\", word) })\n\n# 進行中文斷詞\nmixseg = worker()\nmat <- matrix( unlist(text), nrow=length(text) )\ntotalSegment = data.frame()\nfor( j in 1:length(text) )\n{\n  for( i in 1:length(mat[j,]) )\n  {\n    result = segment(as.character(mat[j,i]), jiebar=mixseg)\n  }\n  totalSegment = rbind(totalSegment, data.frame(result))\n}\n\ntotaldiff = levels(totalSegment$result)\ncountMat = data.frame(totaldiff, c(rep(0, length(totaldiff))))\nfor( i in 1:length(totalSegment$result) )\n{\n  for( j in 1:length(totaldiff) )\n  {\n    if( nchar(totaldiff[j]) >= 2 &&\n        totaldiff[j] == as.character(totalSegment$result[i]) )\n    {\n      countMat[j,2] = countMat[j,2] + 1\n    }\n  }\n}\n\nnames(countMat) = c(\"totaldiff\", \"freq\")\ncountMat[,2] = countMat[,2] / sum(countMat[,2])\n\nwordcloud(countMat$totaldiff, countMat$freq, min.freq = 1, random.order = F, ordered.colors = T, \n          colors = rainbow(length(totaldiff)))",
+    "created" : 1470902469803.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3925647191",
+    "id" : "8C2EED84",
+    "lastKnownWriteTime" : 7595425708019902498,
+    "last_content_update" : 1470903100231,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

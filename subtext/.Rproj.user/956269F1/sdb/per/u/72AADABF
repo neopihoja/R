@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(xml2)\nlibrary(stringr)\n\nchosePage <- function(starpage,endpage){\n  part1_url <-\"http://www.moneydj.com/forum/showforum-8\" \n  part3_url <- \".aspx\"\n  for(i in starpage:endpage){\n    if(i==1){\n      testurl <- paste(part1_url,part3_url,sep=\"\")\n    }\n    if(i>=2){\n      num <- paste(\"-\",i,sep=\"\")\n      testurl <- paste(part1_url,num,part3_url,sep=\"\")\n    }\n    url <- testurl\n    doc <- read_html(url)\n    titlexpath <- \"//*[@class='subject']//a\"\n    title <- xml_text(xml_find_all(doc, titlexpath))              #title\n    \n    urlxpath <- \"//*[@class='subject']//a\"\n    content_url <- xml_attrs(xml_find_all(doc, urlxpath))\n    content_url <- gsub(pattern=\"[[:space:]]\",replacement=\"\",x= content_url)\n    part_url <-\"http://www.moneydj.com\"\n    content_url <- paste(part_url,content_url,sep=\"\")            #content_url\n    \n    authorxpath <-\"//*[@class='author']//a\"\n    author <- xml_text(xml_find_all(doc,authorxpath))           #author\n    \n    timexpath <- \"//*[@ class='author']//em\"\n    time <- xml_text(xml_find_all(doc,timexpath))\n    time <- gsub(pattern=\"[[:space:]]\",replacement=\"\",x= time)   #time\n    time <- paste(substr(time,1,10),substr(time,11,nchar(time)),sep=\"_\")\n    \n    rvxpath <- \"//*[@ class='nums']\"\n    rv <- xml_text(xml_find_all(doc,rvxpath))                   #rv\n    \n    content=0\n    scraping_time=0\n    for(j in 1:length(content_url)){\n      url <- content_url[j]\n      doc <- read_html(url)\n      contentxpath <-\"//*[@id='firstpost']\"\n      contenttemp <- xml_text(xml_find_all(doc,contentxpath))\n      content[j] <- gsub(pattern=\"[[:space:]]\",replacement=\"\",x= contenttemp)\n      scraping_time[j] <- gsub(pattern=\"[[:space:]]\",replacement=\"_\",Sys.time())\n      Sys.sleep(1)\n      #print(i)\n    }\n    if(testurl==\"http://www.moneydj.com/forum/showforum-8.aspx\"){\n      author<- author[-1] \n      time <- time[-1]   \n      rv <- rv[-c(1,2)]      #First page will scrape the hot subject rv  so need if to control\n    }\n    if(testurl!=\"http://www.moneydj.com/forum/showforum-8.aspx\"){\n      rv <- rv[-1]   \n    }\n    \n    response <- unlist(strsplit(rv,split=\"/\"))[seq(1,length(unlist(strsplit(rv,split=\"/\"))),by=2)]   \n    viewcount <- unlist(strsplit(rv,split=\"/\"))[seq(0,length(unlist(strsplit(rv,split=\"/\"))),by=2)]\n    \n    title <- as.data.frame(title)\n    author <- as.data.frame(author)\n    time <- as.data.frame(time)\n    content_url <- as.data.frame(content_url)\n    content <- as.data.frame(content)\n    scraping_time  <- as.data.frame(scraping_time)\n    response <- as.data.frame(response)\n    viewcount <- as.data.frame(viewcount)\n    \n    MoneyDJForum <- cbind(title,author,time,scraping_time,content_url,content,response,viewcount )\n    file_name <- paste(\"C:\\\\Users\\\\user\\\\Desktop\\\\temp\\\\\",paste(\"newsPage_\",i,sep=\"\"),\".csv\",sep=\"\")\n    write.csv(MoneyDJForum,file=file_name)\n  }\n}\n\nchosePage(1,2) #input starpage & endpage",
+    "created" : 1470899633513.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "935549008",
+    "id" : "72AADABF",
+    "lastKnownWriteTime" : 31244220631089154,
+    "last_content_update" : 1470901815158,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : true,
+    "source_window" : "",
+    "type" : "r_source"
+}

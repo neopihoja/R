@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(httr)\n\norgURL = 'https://buy.yungching.com.tw/region/%E5%8F%B0%E5%8C%97%E5%B8%82-%E5%A4%A7%E5%AE%89%E5%8D%80_c/?pg='\n\nstartPage = 1\nendPage = 2\nalldata = data.frame()\nfor( i in startPage:endPage)\n{\n  HOUSEPRICEURL <- paste(orgURL, i, sep='')\n  urlExists = url.exists(HOUSEPRICEURL)\n  \n  if(urlExists)\n  {\n    html = getURL(HOUSEPRICEURL, ssl.verifypeer = FALSE)\n    xml = htmlParse(html, encoding ='utf-8')\n    address = xpathSApply(xml, \"//li[@class=\\\"m-list-item\\\"]/a\", xmlGetAttr, \"title\")\n    url = xpathSApply(xml, \"//li[@class=\\\"m-list-item\\\"]/a\", xmlGetAttr, \"href\")\n    housetypeTemp = xpathSApply(xml, \"//ul[@class=\\\"item-info-detail\\\"]/li\", xmlValue)\n    totalprice = xpathSApply(xml, \"//span[@class=\\\"price-num\\\"]\", xmlValue)\n    housetypeTemp = gsub(\"\\r\\n\", \"\", housetypeTemp)\n    housetypeTemp = gsub(\" \", \"\", housetypeTemp)\n    houseid = seq(1,length(housetypeTemp),by=9)\n    housetype = housetypeTemp[houseid]\n    tempdata = data.frame(address,url,housetype,totalprice)\n    alldata = rbind(alldata, tempdata)\n  }\n}\n\nwrite.csv(alldata,\"alldata.csv\")\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1470798573486.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "713348151",
+    "id" : "CC1AB4D0",
+    "lastKnownWriteTime" : 1470899601,
+    "last_content_update" : 1470899601254,
+    "path" : "C:/Users/AndyWang/Desktop/R/neopihoja2/yunshun.R",
+    "project_path" : "yunshun.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

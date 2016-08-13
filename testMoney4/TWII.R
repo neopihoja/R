@@ -1,0 +1,7 @@
+#rm(list=ls(all=TRUE))
+library("quantmod")
+getSymbols("^TWII",src="yahoo")
+barChart(TWII)
+chartSeries(TWII,theme="white")
+chartSeries(TWII["2007-05::2014-05"],theme="white")
+write.csv(TWII, "TWII.csv")

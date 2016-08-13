@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(NLP)\nlibrary(httr)\n\nSys.setlocale(\"LC_ALL\", \"cht\")\n\nalldata = read.csv('alldata.csv')\norgURL = 'https://www.ptt.cc'\nfor( i in 1:length(alldata$X))\n{\n  pttURL <- paste(orgURL, alldata$path[i], sep='')\n  urlExists = url.exists(pttURL)\n  \n  if(urlExists)\n  {\n    html = getURL(pttURL, ssl.verifypeer = FALSE, encoding='UTF-8')\n    xml = htmlParse(html, encoding='UTF-8')\n    text = xpathSApply(xml, \"//div[@id='main-content']\", xmlValue)\n    name <- paste('./allText/c', i, '.txt', sep='')\n    write(text, name)\n  }\n}\ninsta",
+    "created" : 1470814644493.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3176170956",
+    "id" : "393B6327",
+    "lastKnownWriteTime" : 3,
+    "last_content_update" : 1470818788326,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(Rfacebook)\nlibrary(devtools)\n\ntoken <-\"EAACEdEose0cBAEMP5X61VoY8ZA6nTZCNDAYQkQowE3NUu7b9MhRQdlHSx6tq1JLxuFJ1H6orIdkbdXZAEyoZC7eTI0FX21ZB8a7oqfKcZADa1F5HCKWhXCRz1JzFjRqZB0flCJ9TT585u2vHkluJZAga8Gt0SuaPAoCTqK0GKgenBQZDZD\"\nme=getUsers(\"me\",token,private_info=TRUE)\nmy_friends<-getFriends(token=token,simplify=TRUE)\n\nfor(i in 1:10)\n{ user=getUsers(my_friend$id[i],token,private_info=TRUE)\nprint(user)\n}\n",
+    "created" : 1470899466051.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "482097932",
+    "id" : "EAF027C5",
+    "lastKnownWriteTime" : 29836824279515241,
+    "last_content_update" : 1470899468170,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

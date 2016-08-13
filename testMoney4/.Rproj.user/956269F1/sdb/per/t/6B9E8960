@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1471073507162.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B9E8960",
+    "lastKnownWriteTime" : 3405637522565461360,
+    "last_content_update" : 1471073507162,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "dwrz8vjavw",
+        "caption" : "TWII",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=TWII&cache_key=dwrz8vjavw",
+        "displayedObservations" : 2372,
+        "environment" : "",
+        "object" : "TWII",
+        "totalObservations" : 2372,
+        "variables" : 6
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

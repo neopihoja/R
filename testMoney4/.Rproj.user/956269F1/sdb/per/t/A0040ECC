@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\n# install.packages(\"jiebaR\")\n# install.packages(\"tm\")\n# install.packages(\"slam\")\n# install.packages(\"RColorBrewer\")\n# install.packages(\"wordcloud\")\n# install.packages(\"topicmodels\")\n# install.packages(\"igraph\")\n# install.packages(\"xml2\")\n\nlibrary(jiebaRD)\nlibrary(jiebaR)       # 斷詞利器\nlibrary(NLP)\nlibrary(tm)           # 文字詞彙矩陣運算\nlibrary(slam)         # 稀疏矩陣運算\nlibrary(RColorBrewer)\nlibrary(wordcloud)    # 文字雲\nlibrary(topicmodels)  # 主題模型\nlibrary(plyr)\n\nsource('testMoney2.R')\n\n#Sys.setlocale(\"LC_ALL\", \"cht\")\n#maxpage=5\nresult = testMoney2(1,5)\n\norgPath = \"./temp\"\ntext = Corpus(DirSource(orgPath), list(language = NA))\ntext <- tm_map(text, removePunctuation)\ntext <- tm_map(text, removeNumbers)\ntext <- tm_map(text, function(word)\n{ gsub(\"[A-Za-z0-9]\", \"\", word) })\n\n# 進行中文斷詞\nmixseg = worker()\nmat <- matrix( unlist(text) )\ntotalSegment = data.frame()\nfor( j in 1:length(mat) )\n{\n  for( i in 1:length(mat[j,]) )\n  {\n    result = segment(as.character(mat[j,i]), jiebar=mixseg)\n  }\n  totalSegment = rbind(totalSegment, data.frame(result))\n}\n\n# define text array that you want\n# delete text length < 2\ndelidx = which( nchar(as.vector(totalSegment[,1])) < 2 )\ncountText = totalSegment[-delidx,]\ncountResult = count(countText)[,1]\ncountFreq = count(countText)[,2] / sum(count(countText)[,2])\nwordcloud(countResult, countFreq, min.freq = 1, random.order = F, ordered.colors = T, \n          colors = rainbow(length(countResult)))\n",
+    "created" : 1471073218989.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2808142834",
+    "id" : "A0040ECC",
+    "lastKnownWriteTime" : 1471073145,
+    "last_content_update" : 1471073145,
+    "path" : "C:/Users/AndyWang/Desktop/testMoney4/textMining.R",
+    "project_path" : "textMining.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

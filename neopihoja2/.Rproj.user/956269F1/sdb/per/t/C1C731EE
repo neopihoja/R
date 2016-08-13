@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(httr)\n\norgURL = 'https://evertrust.yungching.com.tw/region/%E5%8F%B0%E5%8C%97%E5%B8%82/%E4%B8%8D%E9%99%90/'\n\nstartPage = 1\nendPage = 10\nalldata = data.frame()\nfor(i in startPage:endPage)\n{\n  URL = paste(orgURL, i, sep='')\n  urlExists = url.exists(URL)\n  if(urlExists)\n  {\n    html = getURL(HOUSEPRICEURL, ssl.verifypeer = FALSE)\n    xml = htmlParse(html, encoding ='utf-8')\n    address = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[3]\", xmlValue)\n    housetype = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[2]\", xmlValue)\n    totalprice = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[4]\",xmlValue)\n    averageprice = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[6]\",xmlValue)\n    floorspace = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[5]\",xmlValue)\n    floor = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[8]\",xmlValue)\n    age = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[9]\",xmlValue)\n    parkingspace = xpathSApply(xml, \"//*[@id=\\\"dealtable\\\"]//td[10]\",xmlValue)\n\n    tempdata = data.frame(address,housetype,totalprice,averageprice,floorspace,floor,age,parkingspace)\n    alldata = rbind(alldata, tempdata)\n  }\n}\n\nwrite.csv(alldata,\"alldata.csv\")",
+    "created" : 1470831669282.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2177056979",
+    "id" : "C1C731EE",
+    "lastKnownWriteTime" : 1470899601,
+    "last_content_update" : 1470899601298,
+    "path" : "C:/Users/AndyWang/Desktop/R/neopihoja2/yunching0810.R",
+    "project_path" : "yunching0810.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

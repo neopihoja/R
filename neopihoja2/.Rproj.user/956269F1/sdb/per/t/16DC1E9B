@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(httr)\n\norgURL = 'https://buy.housefun.com.tw/%E8%B2%B7%E5%B1%8B/%E5%8F%B0%E5%8C%97%E5%B8%82?'\n#orgURL = 'https://www.ptt.cc/bbs/StupidClown/index.html'\n\nstartPage = 1\nendPage = 3\nalldata = data.frame()\nfor( i in startPage:endPage)\n{\n  HOUSEPRICEURL <- paste(orgURL, '&hd_PM=', i, sep='')\n  urlExists = url.exists(HOUSEPRICEURL)\n  \n  if(urlExists)\n  {\n    html = getURL(HOUSEPRICEURL, ssl.verifypeer = FALSE)\n    xml = htmlParse(html, encoding ='utf-8')\n    title = xpathSApply(xml, \"//h1[@class='casename']\", xmlValue)\n    address = xpathSApply(xml, \"//address[@class='address']\", xmlValue)\n    tempdata = data.frame(title, address)\n    alldata = rbind(alldata, tempdata)\n  }\n}\n\nallDate = levels(alldata$date)\n#res = hist(as.numeric(alldata$date), nclass=length(allDate), axes=F) \n#axis(1, at=1:length(allDate), labels=allDate)\n#axis(2, at=1:max(res$counts), labels=1:max(res$counts))\n\nwrite.csv(alldata,\"alldata.csv\")",
+    "created" : 1470723596462.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1826556976",
+    "id" : "16DC1E9B",
+    "lastKnownWriteTime" : 1470899601,
+    "last_content_update" : 1470899601360,
+    "path" : "C:/Users/AndyWang/Desktop/R/neopihoja2/test2.R",
+    "project_path" : "test2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

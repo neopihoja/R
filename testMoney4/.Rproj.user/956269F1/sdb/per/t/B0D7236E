@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1471073519786.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B0D7236E",
+    "lastKnownWriteTime" : 3419473789575321445,
+    "last_content_update" : 1471073519786,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "csxv00z26x",
+        "caption" : "totalSegment",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=totalSegment&cache_key=csxv00z26x",
+        "displayedObservations" : "816",
+        "environment" : "",
+        "object" : "totalSegment",
+        "totalObservations" : "816",
+        "variables" : "1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,3 @@
+library(RColorBrewer)
+library(Rfacebook)
+library(wordcloud)
